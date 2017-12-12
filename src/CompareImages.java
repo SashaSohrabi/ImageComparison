@@ -13,8 +13,8 @@ public class CompareImages {
     private static double sensitivity = 0.10;
 
     public CompareImages(String file1, String file2) throws IOException {
-        image1 = loadJPG(file1);
-        image2 = loadJPG(file2);
+        image1 = loadPNG(file1);
+        image2 = loadPNG(file2);
     }
 
     public void setParameters(int compareX, int compareY) {
@@ -65,7 +65,7 @@ public class CompareImages {
         return result;
     }
 
-    public static BufferedImage loadJPG(String filename) throws IOException {
+    public static BufferedImage loadPNG(String filename) throws IOException {
         BufferedImage img = null;
         try {
             img = ImageIO.read(new File(filename));

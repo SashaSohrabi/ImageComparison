@@ -8,7 +8,7 @@ import javax.imageio.ImageIO;
 
 public class CompareImages {
     private static BufferedImage image1, image2, imageResult;
-    private static boolean isIdentic;
+    private static boolean isIdentical;
     private static int compareX, compareY;
     private static double sensitivity = 0.10;
 
@@ -27,21 +27,20 @@ public class CompareImages {
         Graphics2D g2 = imageResult.createGraphics();
         g2.drawImage(image2, null, null);
         g2.setColor(Color.RED);
-        int blocksX = (int)(image1.getWidth()/compareX);
-        int blocksY = (int)(image1.getHeight()/compareY);
-        CompareImages.isIdentic = true;
+        int blocksX = (image1.getWidth() / compareX);
+        int blocksY = (image1.getHeight() / compareY);
+        CompareImages.isIdentical = true;
 
         for (int y = 0; y < compareY; y++) {
             for (int x = 0; x < compareX; x++) {
-                int result1 [][] = convertTo2D(image1.getSubimage(x*blocksX, y*blocksY, blocksX - 1, blocksY - 1));
-                int result2 [][] = convertTo2D(image2.getSubimage(x*blocksX, y*blocksY, blocksX - 1, blocksY - 1));
+                int result1[][] = convertTo2D(image1.getSubimage(x * blocksX, y * blocksY, blocksX - 1, blocksY - 1));
+                int result2[][] = convertTo2D(image2.getSubimage(x * blocksX, y * blocksY, blocksX - 1, blocksY - 1));
                 for (int i = 0; i < result1.length; i++) {
                     for (int j = 0; j < result1[0].length; j++) {
                         int diff = Math.abs(result1[i][j] - result2[i][j]);
-                        if (diff/Math.abs(result1[i][j]) > sensitivity) {
-                            // draw an indicator on the change image to show where change was detected.
-                            g2.drawRect(x*blocksX, y*blocksY, blocksX - 1, blocksY - 1);
-                            isIdentic = false;
+                        if (diff / Math.abs(result1[i][j]) > sensitivity) {
+                            g2.drawRect(x * blocksX, y * blocksY, blocksX - 1, blocksY - 1);
+                            isIdentical = false;
                         }
                     }
                 }
@@ -76,19 +75,17 @@ public class CompareImages {
         return img;
 
     }
-    
-    public static void saveJPG(BufferedImage bimg, String filename) {
+
+    public static void savePNG(BufferedImage bimg, String filename) {
         try {
-            File outputfile = new File(filename);
-            ImageIO.write(bimg, "jpg", outputfile);
-        } catch(IOException e) {
+            File outputFile = new File(filename);
+            ImageIO.write(bimg, "png", outputFile);
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public boolean isIdentic() {
-        return isIdentic;
+    public boolean isIdentical() {
+        return isIdentical;
     }
-
-
 }

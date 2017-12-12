@@ -76,8 +76,7 @@ public class CompareImages {
         return img;
 
     }
-
-    // writing picture into disk
+    
     public static void saveJPG(BufferedImage bimg, String filename) {
         try {
             File outputfile = new File(filename);
